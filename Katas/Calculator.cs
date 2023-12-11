@@ -1,4 +1,6 @@
-﻿namespace Katas
+﻿using System.Text.RegularExpressions;
+
+namespace Katas
 {
     public class StringCalculator
     {
@@ -20,24 +22,48 @@
 
         public int Add(string numbers)
         {
+            string possibleDelimiters = "!@#$%%^&*(;:.,<>";
             if (numbers == null)
             {
                 throw new ArgumentNullException();
             }
 
-            string trimmedValue = numbers.Trim();
+            string trimmedValue = numbers.Replace(" ", "");
 
             if (trimmedValue == "") return 0;
 
-            string[] numberArray = numbers.Split(',');
+            char[] delimiters = {',', '\n' };
+
+            if (trimmedValue.Length > 3)
+                {
+                if (trimmedValue[1] == '\n')
+                {
+                    for (int a = 0; a < possibleDelimiters.Length; a++)
+                    {
+                        if (trimmedValue[0] == possibleDelimiters[a])
+                        {
+                            delimiters = new char[] { trimmedValue[0] };
+                            trimmedValue = trimmedValue.Substring(2);
+                        }
+                    }
+                }
+            }
+
+            string[] numberArray = trimmedValue.Split(delimiters);
 
             int sum = 0;
+
+            List<int> negatives = new List<int>();
 
             foreach (var number in numberArray)
             {
                 if (int.TryParse(number, out int parsedNumber))
                 {
-                    if (0 <= parsedNumber && parsedNumber <= 3)
+                    if (parsedNumber < 0)
+                    {
+                        negatives.Add(parsedNumber);
+                    }
+                    else if (0 <= parsedNumber && parsedNumber < 3)
                     {
                         sum += parsedNumber;
                     }
@@ -50,6 +76,11 @@
                 {
                     throw new ArgumentException("Invalid number format");
                 }
+            }
+
+            if (negatives.Any())
+            {
+                throw new ArgumentException($"Negatives not allowed: {string.Join(", ", negatives)}");
             }
             return sum;
         }
