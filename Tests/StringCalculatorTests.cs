@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-public class Tests
+public class StringCalculatorTests
 {
     StringCalculator calculator;
 
