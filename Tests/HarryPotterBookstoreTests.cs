@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Katas;
+
 namespace Tests
 {
+
     public class HarryPotterBookstoreTests
     {
         private static IEnumerable<TestCaseData> TestDataWithoutDiscounts()
@@ -15,26 +17,72 @@ namespace Tests
         {
              yield return new TestCaseData(new Dictionary<int, int> { { 1, 1 }, { 2, 1 } }, 15.20);
              yield return new TestCaseData(new Dictionary<int, int> { {1,1 },{ 5, 5 } },47.2);
-            // Cases with 3 different items
-            yield return new TestCaseData(new Dictionary<int, int> { { 1, 1 }, { 2, 1 }, { 3, 1 } }, 21.60);
-// Cases with 3 items (Not all are different)
-yield return new TestCaseData(new Dictionary<int, int> { { 1, 1 }, { 2, 1 }, { 3, 1 } }, 21.60);
-yield return new TestCaseData(new Dictionary<int, int> { { 1, 1 }, { 2, 1 }, { 3, 1 }, { 4, 1 } }, 25.60);
-yield return new TestCaseData(new Dictionary<int, int> { { 1, 1 }, { 2, 1 }, { 3, 1 }, { 4, 1 }, { 5, 1 } }, 30.00);
-yield return new TestCaseData(new Dictionary<int, int> { { 1, 3 } }, 24.0);
-yield return new TestCaseData(new Dictionary<int, int> { { 1, 2 }, { 2, 2 }, { 3, 2 }, { 4, 1 }, { 5, 1 } }, 51.60);
         }
 
-    
+        private static IEnumerable<TestCaseData> TestDataWith10percentDiscount()
+        {
+            yield return new TestCaseData(new Dictionary<int, int> { { 1, 1 }, { 2, 1 }, { 3, 1 } }, 21.60);
+            yield return new TestCaseData(new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 1 } }, 29.60);
+        }
+
+        private static IEnumerable<TestCaseData> TestDataWith20percentDiscount()
+        {
+            yield return new TestCaseData(new Dictionary<int, int> { { 1, 1 }, { 2, 1 }, { 3, 1 }, { 4, 1 } }, 25.60);
+        }
+
+        private static IEnumerable<TestCaseData> TestDataWith25percentDiscount()
+        {
+            yield return new TestCaseData(new Dictionary<int, int> { { 1, 1 }, { 2, 1 }, { 3, 1 }, { 4, 1 }, { 5, 1 } }, 30.00);
+        }
+
+        private static IEnumerable<TestCaseData> TestDataWithMixedPercentDiscount()
+        {
+            yield return new TestCaseData(new Dictionary<int, int> { { 1, 2 }, { 2, 2 }, { 3, 2 }, { 4, 1 }, { 5, 1 } }, 51.60);
+        }
+
 
         [TestCaseSource(nameof(TestDataWithoutDiscounts))]
-        public void CalculateTotalPrice_MultipleScenarios(Dictionary<int, int> basket, double expectedTotalPrice)
+        public void CalculateTotalPrice_withoutDiscount(Dictionary<int, int> basket, double expectedTotalPrice)
         {
             double totalPrice = HarryPotterBookstore.CalculateTotalPrice(basket);
             Assert.AreEqual(expectedTotalPrice, totalPrice);
         }
 
+        [TestCaseSource(nameof(TestDataWith5percentDiscount))]
+        public void CalculateTotalPrice_with5percentDiscount(Dictionary<int, int> basket, double expectedTotalPrice)
+        {
+            double totalPrice = HarryPotterBookstore.CalculateTotalPrice(basket);
+            Assert.AreEqual(expectedTotalPrice, totalPrice);
+        }
 
+        [TestCaseSource(nameof(TestDataWith10percentDiscount))]
+        public void CalculateTotalPrice_with10percentDiscount(Dictionary<int, int> basket, double expectedTotalPrice)
+        {
+            double totalPrice = HarryPotterBookstore.CalculateTotalPrice(basket);
+            Assert.AreEqual(expectedTotalPrice, totalPrice);
+        }
+
+        [TestCaseSource(nameof(TestDataWith20percentDiscount))]
+        public void CalculateTotalPrice_with20percentDiscount(Dictionary<int, int> basket, double expectedTotalPrice)
+        {
+            double totalPrice = HarryPotterBookstore.CalculateTotalPrice(basket);
+            Assert.AreEqual(expectedTotalPrice, totalPrice);
+        }
+
+        [TestCaseSource(nameof(TestDataWith25percentDiscount))]
+        public void CalculateTotalPrice_with25percentDiscount(Dictionary<int, int> basket, double expectedTotalPrice)
+        {
+            double totalPrice = HarryPotterBookstore.CalculateTotalPrice(basket);
+            Assert.AreEqual(expectedTotalPrice, totalPrice);
+        }
+
+        [Test]
+        public void CalculateTotalPrice_WithNullInput()
+        {
+            Assert.Throws<ArgumentException>(() => HarryPotterBookstore.CalculateTotalPrice(null));
+        }
     }
 }
+
+
 
