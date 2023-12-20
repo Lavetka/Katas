@@ -15,16 +15,30 @@
 
             while (basket.Values.Sum() > 0)
             {
+                int distinctBooksCount = basket.Count(kv => kv.Value > 0);
+                double discount = GetDiscount(distinctBooksCount);
+
                 for (int i = 1; i <= 5; i++)
                 {
                     if (basket.ContainsKey(i) && basket[i] > 0)
                     {
-                        totalPrice +=  BookPrice;
+                        totalPrice += (1 - discount) * BookPrice;
                         basket[i]--;
                     }
                 }
             }
             return totalPrice;
+        }
+
+        private static double GetDiscount(int distinctBooksCount)
+        {
+            switch (distinctBooksCount)
+            {
+                case 2:
+                    return 0.05;
+                default:
+                    return 0.0;
+            }
         }
     }
 }

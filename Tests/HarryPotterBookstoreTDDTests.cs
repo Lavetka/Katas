@@ -24,6 +24,19 @@ namespace Tests
         {
             Assert.Throws<ArgumentException>(() => HarryPotterBookstoreTDD.CalculateTotalPrice(null));
         }
+
+        private static IEnumerable<TestCaseData> TestDataWith5percentDiscount()
+        {
+            yield return new TestCaseData(new Dictionary<int, int> { { 1, 1 }, { 2, 1 } }, 15.20);
+            yield return new TestCaseData(new Dictionary<int, int> { { 1, 1 }, { 5, 5 } }, 47.2);
+        }
+
+        [TestCaseSource(nameof(TestDataWith5percentDiscount))]
+        public void CalculateTotalPrice_with5percentDiscount(Dictionary<int, int> basket, double expectedTotalPrice)
+        {
+            double totalPrice = HarryPotterBookstore.CalculateTotalPrice(basket);
+            Assert.AreEqual(expectedTotalPrice, totalPrice);
+        }
     }
 }
 
