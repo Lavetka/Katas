@@ -62,6 +62,18 @@ namespace Tests
             double totalPrice = HarryPotterBookstoreTDD.CalculateTotalPrice(basket);
             Assert.AreEqual(expectedTotalPrice, totalPrice);
         }
+
+        private static IEnumerable<TestCaseData> TestDataWith25percentDiscount()
+        {
+            yield return new TestCaseData(new Dictionary<int, int> { { 1, 1 }, { 2, 1 }, { 3, 1 }, { 4, 1 }, { 5, 1 } }, 30.00);
+        }
+
+        [TestCaseSource(nameof(TestDataWith25percentDiscount))]
+        public void CalculateTotalPrice_with25percentDiscount(Dictionary<int, int> basket, double expectedTotalPrice)
+        {
+            double totalPrice = HarryPotterBookstoreTDD.CalculateTotalPrice(basket);
+            Assert.AreEqual(expectedTotalPrice, totalPrice);
+        }
     }
 }
 
