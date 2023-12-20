@@ -36,6 +36,8 @@
             {
                 case 2:
                     return 0.05;
+                case 3:
+                    return 0.1;
                 default:
                     return 0.0;
             }
