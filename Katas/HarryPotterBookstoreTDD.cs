@@ -11,6 +11,11 @@
                 throw new ArgumentException("Basket cannot be null");
             }
 
+            if (basket.Values.Sum() <= 0)
+            {
+                throw new ArgumentException("Empty basket cannot be calculated");
+            }
+
             double totalPrice = 0;
 
             while (basket.Values.Sum() > 0)
@@ -40,7 +45,7 @@
                     return 0.1;
                 case 4:
                     return 0.2;
-                    case 5:
+                case 5:
                     return 0.25;
                 default:
                     return 0.0;
