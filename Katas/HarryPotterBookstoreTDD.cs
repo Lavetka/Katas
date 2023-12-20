@@ -38,6 +38,8 @@
                     return 0.05;
                 case 3:
                     return 0.1;
+                case 4:
+                    return 0.2;
                 default:
                     return 0.0;
             }
