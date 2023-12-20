@@ -1,5 +1,4 @@
-﻿using System;
-namespace Katas
+﻿namespace Katas
 {
     public class HarryPotterBookstoreTDD
     {
@@ -7,6 +6,11 @@ namespace Katas
 
         public static double CalculateTotalPrice(Dictionary<int, int> basket)
         {
+            if (basket == null)
+            {
+                throw new ArgumentException("Basket cannot be null");
+            }
+
             double totalPrice = 0;
 
             while (basket.Values.Sum() > 0)

@@ -18,6 +18,12 @@ namespace Tests
             double totalPrice = HarryPotterBookstoreTDD.CalculateTotalPrice(basket);
             Assert.AreEqual(expectedTotalPrice, totalPrice);
         }
+
+        [Test]
+        public void CalculateTotalPrice_WithNullInput()
+        {
+            Assert.Throws<ArgumentException>(() => HarryPotterBookstoreTDD.CalculateTotalPrice(null));
+        }
     }
 }
 
